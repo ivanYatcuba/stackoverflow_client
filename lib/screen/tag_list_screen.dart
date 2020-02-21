@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stackoverflow/bloc/tag_list/bloc.dart';
 import 'package:flutter_stackoverflow/model/tag/tag.dart';
+import 'package:flutter_stackoverflow/util/stack_overflow_client_icons.dart';
 
 class TagListScreen extends StatefulWidget {
   @override
@@ -118,23 +119,44 @@ class TagWidget extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              flex: 3,
-              child: Column(
-                children: <Widget>[
-                  Container(child: Text(tag.name)),
-                  Text(
-                    tag.count.toString(),
-                    style: TextStyle(fontSize: 10.0),
+            Row(
+              children: <Widget>[
+                Visibility(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Icon(
+                      StackOverflowClient.android,
+                      color: Colors.green,
+                    ),
                   ),
-                ],
-              ),
+                  visible: tag.name == "android",
+                ),
+                Container(
+                  decoration: new BoxDecoration(
+                    color: Colors.blueAccent.withOpacity(0.3),
+                    borderRadius: new BorderRadius.all(Radius.circular(5)),
+                  ),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    child: Text(tag.name),
+                  ),
+                ),
+              ],
             ),
-            Expanded(
-              flex: 7,
-              child: Text(tag.description ?? ""),
+            SizedBox(height: 12),
+            Row(
+              children: <Widget>[
+                Expanded(child: Text(tag.description ?? "")),
+              ],
+            ),
+            SizedBox(height: 12),
+            Text(
+              "${tag.count} questions",
+              style: TextStyle(fontSize: 11.0),
             ),
           ],
         ),
