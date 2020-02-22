@@ -2,42 +2,44 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_stackoverflow/bloc/base/error_state.dart';
 import 'package:flutter_stackoverflow/bloc/base/list_initial_state.dart';
 import 'package:flutter_stackoverflow/bloc/base/page_state.dart';
-import 'package:flutter_stackoverflow/model/tag/tag.dart';
+import 'package:flutter_stackoverflow/model/question/question.dart';
 
-abstract class TagListState extends Equatable {
-  const TagListState();
+abstract class QuestionState extends Equatable {
+  const QuestionState();
+}
 
+class InitialQuestionState extends QuestionState
+    implements BaseListInitialState {
   @override
   List<Object> get props => [];
 }
 
-class InitialTagListState extends TagListState implements BaseListInitialState {
-}
-
-class TagListError extends TagListState implements BaseListError<Tag> {
+class QuestionListError extends QuestionState
+    implements BaseListError<Question> {
   final String errorMessage;
-  final TagListLoaded listState;
+  final QuestionListLoaded listState;
 
-  TagListError(this.errorMessage, this.listState);
+  QuestionListError(this.errorMessage, this.listState);
 
   @override
   List<Object> get props => [this.errorMessage, this.listState];
 }
 
-class TagListLoaded extends TagListState implements BasePageState<Tag> {
-  final List<Tag> data;
+class QuestionListLoaded extends QuestionState
+    implements BasePageState<Question> {
+  final List<Question> data;
   final bool hasReachedMax;
 
-  const TagListLoaded({
+  const QuestionListLoaded({
     this.data,
     this.hasReachedMax,
   });
 
-  TagListLoaded copyWith({
-    List<Tag> data,
+  QuestionListLoaded copyWith({
+    List<Question> data,
     bool hasReachedMax,
   }) {
-    return TagListLoaded(
+    return QuestionListLoaded(
       data: data ?? this.data,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
     );

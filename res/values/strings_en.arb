@@ -1,4 +1,5 @@
 {
   "label_no_tags_loaded": "No tags!",
-  "label_tag_questions_count": "$count questions"
+  "label_tag_questions_count": "$count questions",
+  "label_no_questions_loaded": "No Question!"
 }
