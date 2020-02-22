@@ -1,7 +1,7 @@
-import 'package:flutter_stackoverflow/model/question/item.dart';
+import 'package:flutter_stackoverflow/model/question/question.dart';
 
 class QuestionList {
-  List<Items> items;
+  List<Question> items;
   bool hasMore;
   int quotaMax;
   int quotaRemaining;
@@ -10,9 +10,9 @@ class QuestionList {
 
   QuestionList.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
-      items = new List<Items>();
+      items = new List<Question>();
       json['items'].forEach((v) {
-        items.add(new Items.fromJson(v));
+        items.add(new Question.fromJson(v));
       });
     }
     hasMore = json['has_more'];
@@ -29,5 +29,9 @@ class QuestionList {
     data['quota_max'] = this.quotaMax;
     data['quota_remaining'] = this.quotaRemaining;
     return data;
+  }
+
+  get hasReachedMax {
+    return !hasMore;
   }
 }

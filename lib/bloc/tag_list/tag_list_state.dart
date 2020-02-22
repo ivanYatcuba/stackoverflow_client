@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_stackoverflow/bloc/base/error_state.dart';
+import 'package:flutter_stackoverflow/bloc/base/list_initial_state.dart';
 import 'package:flutter_stackoverflow/bloc/base/page_state.dart';
 import 'package:flutter_stackoverflow/model/tag/tag.dart';
 
@@ -10,7 +11,8 @@ abstract class TagListState extends Equatable {
   List<Object> get props => [];
 }
 
-class InitialTagListState extends TagListState {}
+class InitialTagListState extends TagListState implements BaseListInitialState {
+}
 
 class TagListError extends TagListState implements BaseListError<Tag> {
   final String errorMessage;
@@ -32,11 +34,11 @@ class TagListLoaded extends TagListState implements BasePageState<Tag> {
   });
 
   TagListLoaded copyWith({
-    List<Tag> posts,
+    List<Tag> data,
     bool hasReachedMax,
   }) {
     return TagListLoaded(
-      data: posts ?? this.data,
+      data: data ?? this.data,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter_stackoverflow/model/question/owner.dart';
 
-class Items {
+class Question {
   List<String> tags;
   Owner owner;
   bool isAnswered;
@@ -17,7 +17,7 @@ class Items {
   int closedDate;
   String closedReason;
 
-  Items(
+  Question(
       {this.tags,
       this.owner,
       this.isAnswered,
@@ -34,7 +34,7 @@ class Items {
       this.closedDate,
       this.closedReason});
 
-  Items.fromJson(Map<String, dynamic> json) {
+  Question.fromJson(Map<String, dynamic> json) {
     tags = json['tags'].cast<String>();
     owner = json['owner'] != null ? new Owner.fromJson(json['owner']) : null;
     isAnswered = json['is_answered'];
@@ -47,7 +47,7 @@ class Items {
     questionId = json['question_id'];
     link = json['link'];
     title = json['title'];
-    body = json['body'];
+    body = json['body_markdown'];
     closedDate = json['closed_date'];
     closedReason = json['closed_reason'];
   }
@@ -68,7 +68,7 @@ class Items {
     data['question_id'] = this.questionId;
     data['link'] = this.link;
     data['title'] = this.title;
-    data['body'] = this.body;
+    data['body_markdown'] = this.body;
     data['closed_date'] = this.closedDate;
     data['closed_reason'] = this.closedReason;
     return data;

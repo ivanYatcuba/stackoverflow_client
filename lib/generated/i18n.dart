@@ -21,6 +21,7 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  String get label_no_questions_loaded => "No Question!";
   String get label_no_tags_loaded => "No tags!";
   String label_tag_questions_count(String count) => "$count questions";
 }
