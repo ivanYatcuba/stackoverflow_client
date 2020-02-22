@@ -1,1 +1,4 @@
-{}
+{
+  "label_no_tags_loaded": "No tags!",
+  "label_tag_questions_count": "$count questions"
+}

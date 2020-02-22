@@ -12,11 +12,12 @@ class InitialTagListState extends TagListState {}
 
 class TagListError extends TagListState {
   final String errorMessage;
+  final TagListLoaded tagsListState;
 
-  TagListError(this.errorMessage);
+  TagListError(this.errorMessage, this.tagsListState);
 
   @override
-  List<Object> get props => [errorMessage];
+  List<Object> get props => [this.errorMessage, this.tagsListState];
 }
 
 class TagListLoaded extends TagListState {
@@ -39,5 +40,5 @@ class TagListLoaded extends TagListState {
   }
 
   @override
-  List<Object> get props => [tags, hasReachedMax];
+  List<Object> get props => [this.tags, this.hasReachedMax];
 }

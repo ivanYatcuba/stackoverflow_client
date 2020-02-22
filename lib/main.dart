@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_stackoverflow/generated/i18n.dart';
 import 'package:flutter_stackoverflow/repository/tag_repository.dart';
-import 'package:flutter_stackoverflow/screen/tag_list_screen.dart';
+import 'package:flutter_stackoverflow/screen/tag/tag_list_screen.dart';
 
 import 'bloc/tag_list/bloc.dart';
 
@@ -14,6 +16,13 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
