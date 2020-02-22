@@ -32,8 +32,8 @@ class TagListBloc extends Bloc<TagListEvent, TagListState> {
           return;
         }
         if (currentState is TagListError) {
-          if (currentState.tagsListState != null) {
-            final newState = await _loadTagPage(currentState.tagsListState);
+          if (currentState.listState != null) {
+            final newState = await _loadTagPage(currentState.listState);
             yield newState;
           } else {
             final newState = await _loadFirstPage();
@@ -58,12 +58,12 @@ class TagListBloc extends Bloc<TagListEvent, TagListState> {
 
   Future<TagListState> _loadTagPage(TagListLoaded tagListState) async {
     final int page =
-        (tagListState.tags.length / _tagRepository.pageSize).floor() + 1;
+        (tagListState.data.length / _tagRepository.pageSize).floor() + 1;
     final tagsList = await _tagRepository.fetchTags(page);
     return tagListState.hasReachedMax
         ? tagListState.copyWith(hasReachedMax: true)
         : TagListLoaded(
-            tags: tagListState.tags + tagsList.items,
+            data: tagListState.data + tagsList.items,
             hasReachedMax: tagsList.hasReachedMax,
           );
   }
@@ -71,7 +71,9 @@ class TagListBloc extends Bloc<TagListEvent, TagListState> {
   Future<TagListLoaded> _loadFirstPage() async {
     final tagList = await _tagRepository.fetchTags(1);
     return TagListLoaded(
-        tags: tagList.items, hasReachedMax: tagList.hasReachedMax);
+      data: tagList.items,
+      hasReachedMax: tagList.hasReachedMax,
+    );
   }
 
   bool _hasReachedMax(TagListState state) =>

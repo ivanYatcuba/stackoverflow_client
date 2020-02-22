@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_stackoverflow/bloc/base/error_state.dart';
+import 'package:flutter_stackoverflow/bloc/base/page_state.dart';
 import 'package:flutter_stackoverflow/model/tag/tag.dart';
 
 abstract class TagListState extends Equatable {
@@ -10,22 +12,22 @@ abstract class TagListState extends Equatable {
 
 class InitialTagListState extends TagListState {}
 
-class TagListError extends TagListState {
+class TagListError extends TagListState implements BaseListError<Tag> {
   final String errorMessage;
-  final TagListLoaded tagsListState;
+  final TagListLoaded listState;
 
-  TagListError(this.errorMessage, this.tagsListState);
+  TagListError(this.errorMessage, this.listState);
 
   @override
-  List<Object> get props => [this.errorMessage, this.tagsListState];
+  List<Object> get props => [this.errorMessage, this.listState];
 }
 
-class TagListLoaded extends TagListState {
-  final List<Tag> tags;
+class TagListLoaded extends TagListState implements BasePageState<Tag> {
+  final List<Tag> data;
   final bool hasReachedMax;
 
   const TagListLoaded({
-    this.tags,
+    this.data,
     this.hasReachedMax,
   });
 
@@ -34,11 +36,11 @@ class TagListLoaded extends TagListState {
     bool hasReachedMax,
   }) {
     return TagListLoaded(
-      tags: posts ?? this.tags,
+      data: posts ?? this.data,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
     );
   }
 
   @override
-  List<Object> get props => [this.tags, this.hasReachedMax];
+  List<Object> get props => [this.data, this.hasReachedMax];
 }
